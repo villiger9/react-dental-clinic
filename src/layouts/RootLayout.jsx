@@ -5,14 +5,16 @@ export default function RootLayout() {
     <div className="min-vh-100 d-flex flex-column">
       <nav className="navbar navbar-dark bg-dark">
         <div className="container">
-          <span className="navbar-brand fw-bold fs-3">Dental Clinic</span>
+          <span className="navbar-brand fw-bold fs-3">
+            <p>العيادة السنية</p>
+          </span>
 
           <div className="navbar-nav">
             <NavLink to="/" className="nav-link px-3">
-              Home
+              الرئيسية
             </NavLink>
-            <NavLink to="#" className="nav-link px-3">
-              Create Appointment
+            <NavLink to="newappointment" className="nav-link px-3">
+              اضافة موعد
             </NavLink>
           </div>
         </div>
