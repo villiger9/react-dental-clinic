@@ -8,6 +8,7 @@ import {
 import RootLayout from './layouts/RootLayout';
 import Home from './pages/Home';
 import NewAppointment, { appointmentAction } from './pages/NewAppointment';
+import AppointmentDetails from './pages/AppointmentDetails';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
         element={<NewAppointment />}
         action={appointmentAction}
       />
+      <Route path="appointments/:id" element={<AppointmentDetails />}></Route>
     </Route>,
   ),
 );

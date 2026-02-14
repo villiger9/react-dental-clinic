@@ -14,7 +14,7 @@ export default function NewAppointment() {
         <p className="lead">يرجى اضافة المعلومات التالية</p>
       </div>
       <div className="row justify-content-center my-5">
-        <div className="col-md-5 text-center ">
+        <div className="col-md-8 col-lg-5 text-center ">
           <Form method="post" action="/newAppointment">
             <div className="mb-4 text-end">
               {/* use textend for arabic right alignment */}
