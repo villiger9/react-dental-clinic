@@ -1,11 +1,11 @@
-/* Target the active pill and make it grey */
+/* target the active pill and make it grey */
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  background-color: #6c757d; /* Bootstrap's standard secondary color */
+  background-color: #6c757d; /* bootstrap standard secondary color */
   color: white;
 }
 
-/* Make the inactive links match your secondary color text */
+/* make the inactive links match secondary color */
 .nav-pills .nav-link {
   color: #6c757d;
 }

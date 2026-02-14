@@ -1,0 +1,18 @@
+{
+  "appointments": [
+    {
+      "id": "8802",
+      "firstName": "asd",
+      "lastName": "asd",
+      "age": 123,
+      "phoneNumber": "123"
+    },
+    {
+      "id": "a492",
+      "firstName": "qwe",
+      "lastName": "qwe",
+      "age": 321,
+      "phoneNumber": "231"
+    }
+  ]
+}

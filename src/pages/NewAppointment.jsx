@@ -1,8 +1,10 @@
-import { Form, redirect, useActionData } from 'react-router-dom';
+import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 
 export default function NewAppointment() {
   const data = useActionData();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
 
   return (
     <div className="container-lg">
@@ -67,11 +69,20 @@ export default function NewAppointment() {
             </div>
 
             <div className="mt-4 text-center">
-              <Button type="submit" variant="primary" className="px-5">
-                إرسال
+              <Button
+                type="submit"
+                variant="primary"
+                className="px-5"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'يتم التحقق...' : 'اضافة الموعد'}
               </Button>
             </div>
-            {data && data.error && <p>{data.error}</p>}
+            {data?.error && (
+              <div className="alert alert-danger mt-3 text-center" role="alert">
+                {data.error}
+              </div>
+            )}
           </Form>
         </div>
       </div>
@@ -84,17 +95,37 @@ export const appointmentAction = async ({ request }) => {
 
   const data = await request.formData();
 
+  // package the form data into an object
   const submission = {
     firstName: data.get('firstName'),
     lastName: data.get('lastName'),
-    age: data.get('age'),
+    age: Number(data.get('age')),
     phoneNumber: data.get('phoneNumber'),
   };
 
   console.log(submission);
 
-  //   send post request
+  // send post request
 
-  //   redirect the user
-  return redirect('/');
+  try {
+    const res = await fetch('http://localhost:8000/appointments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(submission),
+    });
+
+    if (!res.ok) {
+      // catch the error status
+      const errorData = await res.json().catch(() => ({}));
+      console.error('Server Refusal:', res.status, errorData);
+      return {
+        error: `Server returned ${res.status}: ${errorData.message || 'Validation failed'}`,
+      };
+    }
+
+    return redirect('/');
+  } catch (error) {
+    //  catches network/connection errors
+    return { error: 'Cannot connect to the server.' };
+  }
 };
