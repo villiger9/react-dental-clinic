@@ -2,12 +2,12 @@ import { useLoaderData } from 'react-router-dom';
 import AppointmentList from './AppointmentList';
 
 export default function Home() {
-  const allAppointments = useLoaderData(); // نجلب الكل هنا مرة واحدة
+  const allAppointments = useLoaderData();
 
   return (
     <div className="container-fluid py-4 text-end" dir="rtl">
       <div className="row g-4">
-        {/* العمود الأول: القادمون */}
+        {/* first column */}
         <div className="col-md-4">
           <h4 className="text-primary border-bottom pb-2">المرضى القادمون</h4>
           <AppointmentList
@@ -17,7 +17,7 @@ export default function Home() {
           />
         </div>
 
-        {/* العمود الثاني: في الانتظار */}
+        {/* second column */}
         <div className="col-md-4 border-start border-end">
           <h4 className="text-warning border-bottom pb-2">في الانتظار</h4>
           <AppointmentList
@@ -27,7 +27,7 @@ export default function Home() {
           />
         </div>
 
-        {/* العمود الثالث: المريض الحالي */}
+        {/* third column */}
         <div className="col-md-4">
           <h4 className="text-success border-bottom pb-2">المريض الحالي</h4>
           <AppointmentList

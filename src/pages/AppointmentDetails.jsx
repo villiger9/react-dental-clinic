@@ -22,7 +22,6 @@ export default function AppointmentDetails() {
           {appointment.appointmentTime}
         </div>
 
-        {/* استخدام Form التابع لـ React Router لإرسال طلب الحذف */}
         <Form method="post">
           <button type="submit" className="btn btn-danger px-4">
             حذف الموعد
@@ -33,14 +32,12 @@ export default function AppointmentDetails() {
   );
 }
 
-// 1. الـ Loader لجلب البيانات قبل عرض الصفحة
 export const appointmentDetailsLoader = async ({ params }) => {
   const res = await fetch('http://localhost:8000/appointments/' + params.id);
   if (!res.ok) throw Error('تعذر العثور على هذا الموعد');
   return res.json();
 };
 
-// 2. الـ Action لمعالجة عملية الحذف
 export const deleteAppointmentAction = async ({ params }) => {
   const res = await fetch('http://localhost:8000/appointments/' + params.id, {
     method: 'DELETE',

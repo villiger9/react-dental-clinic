@@ -32,13 +32,11 @@ export default function AppointmentList({ appointments, statusType }) {
                 التفاصيل
               </Link>
 
-              {/* زر النقل من الانتظار إلى المعالجة */}
-              {statusType === 'waiting' && (
+              {appointment.appointmentStatus === 'waiting' && (
                 <button className="btn btn-sm btn-success">بدء المعالجة</button>
               )}
 
-              {/* زر الإلغاء للمواعيد المسبقة التي لم تحضر بعد */}
-              {statusType === 'upcoming' && (
+              {appointment.appointmentStatus === 'upcoming' && (
                 <button className="btn btn-sm btn-outline-danger">إلغاء</button>
               )}
             </div>

@@ -8,121 +8,115 @@ export default function NewAppointment() {
   const today = new Date().toISOString().split('T')[0];
 
   return (
-    <div className="container-lg bg-white">
-      <div className="text-center mt-5">
-        <h2>استمارة موعد جديد</h2>
-        <p className="lead">يرجى اضافة المعلومات التالية</p>
+    <div className="container py-5" dir="rtl">
+      {/* Header Section */}
+      <div className="text-center mb-5">
+        <h2 className="fw-bold text-primary">استمارة موعد جديد</h2>
+        <p className="text-muted">أدخل بيانات المريض </p>
       </div>
-      <div className="row justify-content-center my-5">
-        <div className="col-md-8 col-lg-5 text-center ">
-          <Form method="post" action="/newAppointment">
-            <div className="mb-4 text-end">
-              {/* use textend for arabic right alignment */}
-              <label htmlFor="name" className="form-label">
-                :الاسم
+
+      {/* Form Card */}
+      <div
+        className="card shadow-sm border-0 mx-auto"
+        style={{ maxWidth: '600px' }}
+      >
+        <div className="card-body p-4 p-md-5">
+          <Form method="post">
+            <div className="mb-4">
+              <label htmlFor="name" className="form-label fw-semibold">
+                اسم المريض
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                className="form-control text-end"
+                className="form-control form-control-lg text-end"
+                placeholder="الاسم والكنية"
                 required
               />
             </div>
 
-            <div className="mb-4 text-end">
-              <label htmlFor="phoneNumber" className="form-label">
-                :رقم الهاتف
-              </label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                className="form-control text-end"
-                required
-              />
-            </div>
-
-            <div className=" mb-3 text-end">
-              <div>
-                <label htmlFor="bloodType" className="form-label">
-                  :زمرة الدم
+            <div className="row">
+              <div className="col-md-6 mb-4">
+                <label htmlFor="phoneNumber" className="form-label fw-semibold">
+                  رقم الهاتف
                 </label>
+                <input
+                  type="tel"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  className="form-control"
+                  placeholder="09xxxxxxxx"
+                  required
+                />
               </div>
-              <select className="form-select" id="bloodType" name="bloodType">
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-              </select>
-
-              <div className="mb-3 text-end">
-                <div>
-                  <label htmlFor="bloodType" className="form-label">
-                    :نوع الحجز
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="appointmentType"
-                    id="radio1"
-                    value="مسبق"
-                  />
-                  <label className="form-check-label" htmlFor="radio1">
-                    مسبق
-                  </label>
-                </div>
-
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="appointmentType"
-                    id="radio2"
-                    value="مباشر"
-                  />
-                  <label className="form-check-label" htmlFor="radio2">
-                    مباشر
-                  </label>
-                </div>
-
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="appointmentType"
-                    id="radio3"
-                    value="حالة إسعافية"
-                  />
-                  <label className="form-check-label" htmlFor="radio3">
-                    حالة إسعافية
-                  </label>
-                </div>
+              <div className="col-md-6 mb-4">
+                <label htmlFor="bloodType" className="form-label fw-semibold">
+                  زمرة الدم
+                </label>
+                <select className="form-select" id="bloodType" name="bloodType">
+                  {['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'].map(
+                    (type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ),
+                  )}
+                </select>
               </div>
+            </div>
 
-              <div className="mb-3 text-end">
-                <label htmlFor="appointmentDate" className="form-label">
-                  :تاريخ الحجز
+            <hr className="my-4 opacity-25" />
+
+            <div className="mb-4">
+              <label className="form-label d-block fw-semibold mb-3">
+                نوع الحجز
+              </label>
+              <div className="d-flex gap-3 justify-content-start">
+                {['مسبق', 'مباشر', 'حالة إسعافية'].map((type, idx) => (
+                  <div key={idx} className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="appointmentType"
+                      id={`radio${idx}`}
+                      value={type}
+                      defaultChecked={idx === 0}
+                    />
+                    <label
+                      className="form-check-label ms-2"
+                      htmlFor={`radio${idx}`}
+                    >
+                      {type}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6 mb-4">
+                <label
+                  htmlFor="appointmentDate"
+                  className="form-label fw-semibold"
+                >
+                  التاريخ
                 </label>
                 <input
                   type="date"
                   id="appointmentDate"
                   name="appointmentDate"
                   className="form-control"
-                  min={today} // Prevents selecting past dates
+                  min={today}
                   required
                 />
               </div>
-
-              <div className="mb-3 text-end">
-                <label htmlFor="appointmentTime" className="form-label">
-                  :وقت الحجز
+              <div className="col-md-6 mb-4">
+                <label
+                  htmlFor="appointmentTime"
+                  className="form-label fw-semibold"
+                >
+                  الوقت
                 </label>
                 <input
                   type="time"
@@ -132,49 +126,54 @@ export default function NewAppointment() {
                   required
                 />
               </div>
-
-              <div className=" mb-3 text-end">
-                <div>
-                  <label htmlFor="appointmentStatus" className="form-label">
-                    :الحالة
-                  </label>
-                </div>
-                <select
-                  className="form-select"
-                  id="appointmentStatus"
-                  name="appointmentStatus"
-                >
-                  <option value="upcoming">قادم</option>
-                  <option value="waiting">في الانتظار</option>
-                  <option value="inTreatment">حالي</option>
-                </select>
-              </div>
-
-              <div className="mt-4 text-center">
-                <Button
-                  type="submit"
-                  variant="primary"
-                  className="px-5"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? 'يتم التحقق...' : 'اضافة الموعد'}
-                </Button>
-              </div>
-              {data?.error && (
-                <div
-                  className="alert alert-danger mt-3 text-center"
-                  role="alert"
-                >
-                  {data.error}
-                </div>
-              )}
             </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="appointmentStatus"
+                className="form-label fw-semibold"
+              >
+                الحالة الابتدائية
+              </label>
+              <select
+                className="form-select bg-light"
+                id="appointmentStatus"
+                name="appointmentStatus"
+              >
+                <option value="upcoming">قادم</option>
+                <option value="waiting">في الانتظار</option>
+                <option value="inTreatment">مريض حالي</option>
+              </select>
+            </div>
+
+            <div className="d-grid mt-5">
+              <Button
+                type="submit"
+                variant="primary"
+                size="lg"
+                disabled={isSubmitting}
+                className="py-2 shadow-sm"
+              >
+                {isSubmitting ? 'جاري الحفظ...' : 'تأكيد إضافة الموعد'}
+              </Button>
+            </div>
+
+            {data?.error && (
+              <div
+                className="alert alert-danger mt-4 border-0 text-center small"
+                role="alert"
+              >
+                {data.error}
+              </div>
+            )}
           </Form>
         </div>
       </div>
     </div>
   );
 }
+
+// Keep your appointmentAction logic the same
 
 export const appointmentAction = async ({ request }) => {
   console.log(request);
