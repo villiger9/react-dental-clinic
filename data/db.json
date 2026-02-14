@@ -1,20 +1,13 @@
 {
   "appointments": [
     {
-      "id": "468f",
-      "name": "a",
-      "phoneNumber": "a",
-      "bloodType": "A+",
-      "appointmentType": "مسبق",
-      "appointmentDate": "2026-02-21"
-    },
-    {
-      "id": "a116",
-      "name": "b",
-      "phoneNumber": "b",
-      "bloodType": "A-",
+      "id": "4523",
+      "name": "c",
+      "phoneNumber": "c",
+      "bloodType": "AB-",
       "appointmentType": "مباشر",
-      "appointmentDate": "2026-02-20"
+      "appointmentTime": "13:00",
+      "appointmentDate": "2026-02-25"
     }
   ]
 }

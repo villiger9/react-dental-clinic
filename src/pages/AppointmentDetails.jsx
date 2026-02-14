@@ -29,6 +29,7 @@ export default function AppointmentDetails() {
           <p>{appointment.phoneNumber}</p>
           <p>{appointment.bloodType}</p>
           <div>{appointment.appointmentType}</div>
+          <div>{appointment.appointmentTime}</div>
           <div>{appointment.appointmentDate}</div>
           <button onClick={handleClick}>delete</button>
         </article>

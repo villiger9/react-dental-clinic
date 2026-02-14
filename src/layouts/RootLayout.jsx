@@ -4,7 +4,7 @@ export default function RootLayout() {
   return (
     // "d-flex flex-column min-vh-100" keeps the footer at the bottom
     <div className="d-flex flex-column min-vh-100 bg-light">
-      <nav className="navbar navbar-expand-md navbar-light pt-5 pb-4">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-xxl">
           <NavLink className="navbar-brand" to="/">
             <span className="text-secondary fw-bold">العيادة السنية</span>

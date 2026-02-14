@@ -120,6 +120,19 @@ export default function NewAppointment() {
                 />
               </div>
 
+              <div className="mb-3 text-end">
+                <label htmlFor="appointmentTime" className="form-label">
+                  :وقت الحجز
+                </label>
+                <input
+                  type="time"
+                  id="appointmentTime"
+                  name="appointmentTime"
+                  className="form-control"
+                  required
+                />
+              </div>
+
               <div className="mt-4 text-center">
                 <Button
                   type="submit"
@@ -157,6 +170,7 @@ export const appointmentAction = async ({ request }) => {
     phoneNumber: data.get('phoneNumber'),
     bloodType: data.get('bloodType'),
     appointmentType: data.get('appointmentType'),
+    appointmentTime: data.get('appointmentTime'),
     appointmentDate: data.get('appointmentDate'),
   };
 
