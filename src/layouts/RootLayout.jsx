@@ -30,13 +30,13 @@ export default function RootLayout() {
           >
             <ul className="navbar-nav nav-pills">
               <li className="nav-item">
-                <NavLink className="nav-link" to="/">
-                  الرئيسية
+                <NavLink className="nav-link" to="newappointment">
+                  اضافة موعد
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="newappointment">
-                  اضافة موعد
+                <NavLink className="nav-link" to="/">
+                  الرئيسية
                 </NavLink>
               </li>
             </ul>
