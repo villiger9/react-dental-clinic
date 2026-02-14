@@ -8,7 +8,7 @@ export default function NewAppointment() {
   const today = new Date().toISOString().split('T')[0];
 
   return (
-    <div className="container-lg bg-secondary">
+    <div className="container-lg bg-white">
       <div className="text-center mt-5">
         <h2>استمارة موعد جديد</h2>
         <p className="lead">يرجى اضافة المعلومات التالية</p>
@@ -133,6 +133,23 @@ export default function NewAppointment() {
                 />
               </div>
 
+              <div className=" mb-3 text-end">
+                <div>
+                  <label htmlFor="appointmentStatus" className="form-label">
+                    :الحالة
+                  </label>
+                </div>
+                <select
+                  className="form-select"
+                  id="appointmentStatus"
+                  name="appointmentStatus"
+                >
+                  <option value="upcoming">قادم</option>
+                  <option value="waiting">في الانتظار</option>
+                  <option value="inTreatment">حالي</option>
+                </select>
+              </div>
+
               <div className="mt-4 text-center">
                 <Button
                   type="submit"
@@ -172,6 +189,7 @@ export const appointmentAction = async ({ request }) => {
     appointmentType: data.get('appointmentType'),
     appointmentTime: data.get('appointmentTime'),
     appointmentDate: data.get('appointmentDate'),
+    appointmentStatus: data.get('appointmentStatus'),
   };
 
   console.log(submission);
