@@ -5,6 +5,7 @@ export default function NewAppointment() {
   const data = useActionData();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
+  const today = new Date().toISOString().split('T')[0];
 
   return (
     <div className="container-lg">
@@ -18,43 +19,18 @@ export default function NewAppointment() {
             {/* First Name */}
             <div className="mb-3 text-end">
               {/* use textend for arabic right alignment */}
-              <label htmlFor="firstName" className="form-label">
+              <label htmlFor="name" className="form-label">
                 :الاسم
               </label>
               <input
                 type="text"
-                id="firstName"
-                name="firstName"
+                id="name"
+                name="name"
                 className="form-control"
                 required
               />
             </div>
 
-            <div className="mb-3 text-end">
-              <label htmlFor="lastName" className="form-label">
-                :الكنية
-              </label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                className="form-control"
-                required
-              />
-            </div>
-
-            <div className="mb-3 text-end">
-              <label htmlFor="age" className="form-label">
-                :العمر
-              </label>
-              <input
-                type="number"
-                id="age"
-                name="age"
-                className="form-control"
-                required
-              />
-            </div>
             <div className="mb-3 text-end">
               <label htmlFor="phoneNumber" className="form-label">
                 :رقم الهاتف
@@ -64,6 +40,170 @@ export default function NewAppointment() {
                 id="phoneNumber"
                 name="phoneNumber"
                 className="form-control"
+                required
+              />
+            </div>
+
+            <div className="mb-3 text-end">
+              <div>
+                <label htmlFor="bloodType" className="form-label">
+                  :زمرة الدم
+                </label>
+              </div>
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="bloodType"
+                  id="inlineRadio1"
+                  value="A+"
+                />
+                <label className="form-check-label" htmlFor="inlineRadio1">
+                  A+
+                </label>
+              </div>
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="bloodType"
+                  id="inlineRadio2"
+                  value="A-"
+                />
+                <label className="form-check-label" htmlFor="inlineRadio2">
+                  A-
+                </label>
+              </div>
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="bloodType"
+                  id="inlineRadio3"
+                  value="B+"
+                />
+                <label className="form-check-label" htmlFor="inlineRadio3">
+                  B+
+                </label>
+              </div>
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="bloodType"
+                  id="inlineRadio4"
+                  value="B-"
+                />
+                <label className="form-check-label" htmlFor="inlineRadio4">
+                  B-
+                </label>
+              </div>
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="bloodType"
+                  id="inlineRadio5"
+                  value="O+"
+                />
+                <label className="form-check-label" htmlFor="inlineRadio5">
+                  O+
+                </label>
+              </div>
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="bloodType"
+                  id="inlineRadio6"
+                  value="O-"
+                />
+                <label className="form-check-label" htmlFor="inlineRadio6">
+                  O-
+                </label>
+              </div>
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="bloodType"
+                  id="inlineRadio7"
+                  value="AB+"
+                />
+                <label className="form-check-label" htmlFor="inlineRadio7">
+                  AB+
+                </label>
+              </div>
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="bloodType"
+                  id="inlineRadio8"
+                  value="AB-"
+                />
+                <label className="form-check-label" htmlFor="inlineRadio8">
+                  AB-
+                </label>
+              </div>
+            </div>
+
+            <div className="mb-3 text-end">
+              <div>
+                <label htmlFor="bloodType" className="form-label">
+                  :نوع الحجز
+                </label>
+              </div>
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="appointmentType"
+                  id="radio1"
+                  value="مسبق"
+                />
+                <label className="form-check-label" htmlFor="radio1">
+                  مسبق
+                </label>
+              </div>
+
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="appointmentType"
+                  id="radio2"
+                  value="مباشر"
+                />
+                <label className="form-check-label" htmlFor="radio2">
+                  مباشر
+                </label>
+              </div>
+
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="appointmentType"
+                  id="radio3"
+                  value="حالة إسعافية"
+                />
+                <label className="form-check-label" htmlFor="radio3">
+                  حالة إسعافية
+                </label>
+              </div>
+            </div>
+
+            <div className="mb-3 text-end">
+              <label htmlFor="appointmentDate" className="form-label">
+                :تاريخ الحجز
+              </label>
+              <input
+                type="date"
+                id="appointmentDate"
+                name="appointmentDate"
+                className="form-control"
+                min={today} // Prevents selecting past dates
                 required
               />
             </div>
@@ -97,10 +237,11 @@ export const appointmentAction = async ({ request }) => {
 
   // package the form data into an object
   const submission = {
-    firstName: data.get('firstName'),
-    lastName: data.get('lastName'),
-    age: Number(data.get('age')),
+    name: data.get('name'),
     phoneNumber: data.get('phoneNumber'),
+    bloodType: data.get('bloodType'),
+    appointmentType: data.get('appointmentType'),
+    appointmentDate: data.get('appointmentDate'),
   };
 
   console.log(submission);

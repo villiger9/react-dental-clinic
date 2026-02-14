@@ -1,18 +1,19 @@
 {
   "appointments": [
     {
-      "id": "8802",
-      "firstName": "asd",
-      "lastName": "asd",
-      "age": 123,
-      "phoneNumber": "123"
+      "id": "df7c",
+      "name": "ضصث",
+      "phoneNumber": "123",
+      "bloodType": "O-",
+      "appointmentType": "مباشر"
     },
     {
-      "id": "a492",
-      "firstName": "qwe",
-      "lastName": "qwe",
-      "age": 321,
-      "phoneNumber": "231"
+      "id": "8993",
+      "name": "asdf",
+      "phoneNumber": "1234",
+      "bloodType": "O-",
+      "appointmentType": "مسبق",
+      "appointmentDate": "2026-02-15"
     }
   ]
 }
