@@ -25,7 +25,15 @@ export default function AppointmentList({ appointments, statusType }) {
                 التفاصيل
               </Link>
 
-              <fetcher.Form method="post" className="m-0">
+              <fetcher.Form
+                method="post"
+                className="m-0"
+                onSubmit={(e) => {
+                  if (!window.confirm('هل أنت متأكد؟')) {
+                    e.preventDefault();
+                  }
+                }}
+              >
                 <input type="hidden" name="id" value={appointment.id} />
                 <input type="hidden" name="intent" value="cancel-appointment" />
                 <button
@@ -50,7 +58,7 @@ export default function AppointmentList({ appointments, statusType }) {
                     type="submit"
                     className="btn btn-sm btn-outline-warning text-secondary"
                   >
-                    بدء المعالجة
+                    بدء الجلسة
                   </button>
                 </fetcher.Form>
               )}

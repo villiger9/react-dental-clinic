@@ -6,7 +6,9 @@ export default function AppointmentDetails() {
 
   return (
     <div className="container mt-5 text-end" dir="rtl">
-      <article className="card shadow-sm p-4">
+      <article
+        className={`card shadow-sm p-4 ${appointment.appointmentType === 'حالة إسعافية' ? 'border-danger' : ''}`}
+      >
         <h2 className="text-primary mb-4">{appointment.name}</h2>
         <div className="mb-3">
           <strong>رقم الهاتف:</strong> {appointment.phoneNumber}
@@ -23,10 +25,22 @@ export default function AppointmentDetails() {
           {appointment.appointmentTime}
         </div>
 
-        <Form method="post">
+        <Form
+          method="post"
+          onSubmit={(e) => {
+            if (!window.confirm('هل أنت متأكد؟')) {
+              e.preventDefault();
+            }
+          }}
+        >
           <input type="hidden" name="intent" value="delete" />
-          <button type="submit" className="btn btn-danger px-4">
-            حذف الموعد
+          <button
+            type="submit"
+            className={`btn btn-sm ${appointment.appointmentStatus === 'inTreatment' ? 'btn-outline-success' : 'btn-outline-danger'}`}
+          >
+            {appointment.appointmentStatus === 'inTreatment'
+              ? 'انهاء الجلسة'
+              : 'الغاء الموعد'}
           </button>
         </Form>
       </article>

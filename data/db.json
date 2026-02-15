@@ -1,54 +1,34 @@
 {
   "appointments": [
     {
-      "id": "1234",
-      "name": "ca",
-      "phoneNumber": "ca",
-      "bloodType": "A-",
-      "appointmentType": "مباشر",
-      "appointmentTime": "13:00",
-      "appointmentDate": "2026-02-26",
-      "appointmentStatus": "inTreatment"
-    },
-    {
-      "id": "17cd",
+      "id": "6b21",
       "name": "a1",
-      "phoneNumber": "4321",
-      "bloodType": "A-",
+      "phoneNumber": "4532",
+      "bloodType": "B+",
       "appointmentType": "مسبق",
-      "appointmentDate": "2026-03-06",
-      "appointmentTime": "12:04",
-      "appointmentStatus": "waiting"
+      "appointmentDate": "2026-02-24",
+      "appointmentTime": "13:05",
+      "appointmentStatus": "upcoming"
     },
     {
-      "id": "6b26",
+      "id": "6b22",
       "name": "b1",
       "phoneNumber": "4532",
       "bloodType": "B+",
-      "appointmentType": "مباشر",
+      "appointmentType": "مسبق",
       "appointmentDate": "2026-02-24",
       "appointmentTime": "13:05",
       "appointmentStatus": "waiting"
     },
     {
-      "id": "7ef7",
+      "id": "6b23",
       "name": "c1",
-      "phoneNumber": "654",
-      "bloodType": "B-",
-      "appointmentType": "حالة إسعافية",
+      "phoneNumber": "4532",
+      "bloodType": "B+",
+      "appointmentType": "مسبق",
       "appointmentDate": "2026-02-24",
-      "appointmentTime": "15:07",
+      "appointmentTime": "13:05",
       "appointmentStatus": "inTreatment"
-    },
-    {
-      "id": "1bd1",
-      "name": "e1",
-      "phoneNumber": "12345",
-      "bloodType": "O-",
-      "appointmentType": "مباشر",
-      "appointmentDate": "2026-02-24",
-      "appointmentTime": "14:31",
-      "appointmentStatus": "upcoming"
     }
   ]
 }
