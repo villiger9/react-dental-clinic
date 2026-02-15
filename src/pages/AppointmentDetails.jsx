@@ -1,4 +1,5 @@
 import { useLoaderData, Form, redirect } from 'react-router-dom';
+import { deleteAppointment } from '../helpers';
 
 export default function AppointmentDetails() {
   const appointment = useLoaderData();
@@ -23,6 +24,7 @@ export default function AppointmentDetails() {
         </div>
 
         <Form method="post">
+          <input type="hidden" name="intent" value="delete" />
           <button type="submit" className="btn btn-danger px-4">
             حذف الموعد
           </button>
@@ -39,11 +41,6 @@ export const appointmentDetailsLoader = async ({ params }) => {
 };
 
 export const deleteAppointmentAction = async ({ params }) => {
-  const res = await fetch('http://localhost:8000/appointments/' + params.id, {
-    method: 'DELETE',
-  });
-
-  if (!res.ok) throw Error('فشل حذف الموعد');
-
+  await deleteAppointment(params.id);
   return redirect('/');
 };

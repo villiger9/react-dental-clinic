@@ -1,5 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import AppointmentList from './AppointmentList';
+import { deleteAppointment } from '../helpers';
 
 export default function Home() {
   const allAppointments = useLoaderData();
@@ -51,4 +52,33 @@ export const appointmentsLoader = async () => {
   }
 
   return res.json();
+};
+
+// Home.jsx
+
+export const homeAction = async ({ request }) => {
+  const formData = await request.formData();
+  const id = formData.get('id');
+  const intent = formData.get('intent');
+
+  let newStatus = '';
+  if (intent === 'move-to-waiting') newStatus = 'waiting';
+  if (intent === 'move-to-treatment') newStatus = 'inTreatment';
+
+  if (newStatus) {
+    const res = await fetch(`http://localhost:8000/appointments/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ appointmentStatus: newStatus }),
+    });
+
+    if (!res.ok) throw Error('تعذر تحديث حالة المريض');
+  }
+
+  if (intent === 'cancel-appointment') {
+    await deleteAppointment(id);
+    return { success: true };
+  }
+
+  return { success: true };
 };

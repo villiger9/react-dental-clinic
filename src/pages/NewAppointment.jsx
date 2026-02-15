@@ -181,15 +181,7 @@ export const appointmentAction = async ({ request }) => {
   const data = await request.formData();
 
   // package the form data into an object
-  const submission = {
-    name: data.get('name'),
-    phoneNumber: data.get('phoneNumber'),
-    bloodType: data.get('bloodType'),
-    appointmentType: data.get('appointmentType'),
-    appointmentTime: data.get('appointmentTime'),
-    appointmentDate: data.get('appointmentDate'),
-    appointmentStatus: data.get('appointmentStatus'),
-  };
+  const submission = Object.fromEntries(data);
 
   console.log(submission);
 

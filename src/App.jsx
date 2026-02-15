@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import RootLayout from './layouts/RootLayout';
-import Home, { appointmentsLoader } from './pages/Home';
+import Home, { appointmentsLoader, homeAction } from './pages/Home';
 import NewAppointment, { appointmentAction } from './pages/NewAppointment';
 import AppointmentDetails, {
   appointmentDetailsLoader,
@@ -15,7 +15,12 @@ import AppointmentDetails, {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
-      <Route index element={<Home />} loader={appointmentsLoader} />
+      <Route
+        index
+        element={<Home />}
+        loader={appointmentsLoader}
+        action={homeAction}
+      />
       <Route
         path="newappointment"
         element={<NewAppointment />}
