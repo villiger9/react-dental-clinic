@@ -1,5 +1,12 @@
-import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
+import {
+  Form,
+  Link,
+  redirect,
+  useActionData,
+  useNavigation,
+} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import BackButton from '../components/BackButton';
 
 export default function NewAppointment() {
   const data = useActionData();
@@ -19,6 +26,8 @@ export default function NewAppointment() {
 
   return (
     <div className="container py-5" dir="rtl">
+      <BackButton to="/" text="رجوع " />
+
       <div className="text-center mb-5">
         <h2 className="fw-bold text-primary">
           <i className="bi bi-ui-checks"></i> استمارة موعد جديد

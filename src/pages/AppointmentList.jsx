@@ -1,4 +1,5 @@
 import { Link, useFetcher } from 'react-router-dom'; // 1. استخدم useFetcher
+import EmergencyBadge from '../components/EmergencyBadge';
 
 export default function AppointmentList({ appointments, statusType }) {
   const fetcher = useFetcher(); // 2. عرف الـ fetcher
@@ -18,17 +19,7 @@ export default function AppointmentList({ appointments, statusType }) {
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h5 className="card-title mb-0">{appointment.name}</h5>
 
-              {appointment.appointmentType === 'اسعاف' && (
-                <span className="badge bg-danger d-flex align-items-center gap-1">
-                  <div
-                    className="spinner-grow spinner-grow-sm text-white"
-                    role="status"
-                  >
-                    <span className="visually-hidden">اسعاف</span>
-                  </div>
-                  <span>اسعاف</span>
-                </span>
-              )}
+              {appointment.appointmentType === 'اسعاف' && <EmergencyBadge />}
             </div>
 
             <div className="d-flex flex-wrap gap-2 mt-3 justify-content-start align-items-center">

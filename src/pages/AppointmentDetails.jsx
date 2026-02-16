@@ -1,19 +1,14 @@
 import { useLoaderData, Form, redirect, Link } from 'react-router-dom';
 import { deleteAppointment } from '../helpers';
+import BackButton from '../components/BackButton';
+import EmergencyBadge from '../components/EmergencyBadge';
 
 export default function AppointmentDetails() {
   const appointment = useLoaderData();
 
   return (
     <div className="container mt-5 text-end" dir="rtl">
-      <div className="mb-3">
-        <Link
-          to="/"
-          className="btn btn-link p-0 text-decoration-none text-primary"
-        >
-          <i className="bi bi-arrow-right"></i> العودة
-        </Link>
-      </div>
+      <BackButton to="/" text="رجوع " />
 
       <article
         className={`card shadow-sm p-4 ${appointment.appointmentType === 'اسعاف' ? 'border-danger border-2' : ''}`}
@@ -21,15 +16,7 @@ export default function AppointmentDetails() {
         <div className="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
           <h2 className="text-primary mb-0 fw-bold">{appointment.name}</h2>
 
-          {appointment.appointmentType === 'اسعاف' && (
-            <span className="badge bg-danger d-flex align-items-center gap-2 py-2 px-3">
-              <div
-                className="spinner-grow spinner-grow-sm text-white"
-                role="status"
-              ></div>
-              <span className="fs-6">اسعاف </span>
-            </span>
-          )}
+          {appointment.appointmentType === 'اسعاف' && <EmergencyBadge />}
         </div>
 
         <div className="row g-3">
