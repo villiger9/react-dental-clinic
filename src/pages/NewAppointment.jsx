@@ -11,7 +11,9 @@ export default function NewAppointment() {
     <div className="container py-5" dir="rtl">
       {/* Header Section */}
       <div className="text-center mb-5">
-        <h2 className="fw-bold text-primary">استمارة موعد جديد</h2>
+        <h2 className="fw-bold text-primary">
+          <i className="bi bi-ui-checks"></i> استمارة موعد جديد
+        </h2>
         <p className="text-muted">أدخل بيانات المريض </p>
       </div>
 
@@ -26,14 +28,20 @@ export default function NewAppointment() {
               <label htmlFor="name" className="form-label fw-semibold">
                 اسم المريض
               </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="form-control form-control-lg text-end"
-                placeholder="الاسم والكنية"
-                required
-              />
+              <div className="input-group">
+                <span className="input-group-text bg-light">
+                  <i className="bi bi-person-plus text-primary"></i>
+                </span>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="form-control"
+                  placeholder="الاسم والكنية"
+                  minLength="3"
+                  required
+                />
+              </div>
             </div>
 
             <div className="row">
@@ -41,15 +49,22 @@ export default function NewAppointment() {
                 <label htmlFor="phoneNumber" className="form-label fw-semibold">
                   رقم الهاتف
                 </label>
-                <input
-                  type="tel"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  className="form-control"
-                  placeholder="09xxxxxxxx"
-                  required
-                />
-              </div>
+                <div className="input-group">
+                  <span className="input-group-text bg-light">
+                    <i className="bi bi-telephone-plus text-primary"></i>
+                  </span>
+                  <input
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    className="form-control"
+                    placeholder="09xxxxxxxx"
+                    maxLength="10"
+                    pattern="09[0-9]{8}"
+                    required
+                  />
+                </div>
+              </div>{' '}
               <div className="col-md-6 mb-4">
                 <label htmlFor="bloodType" className="form-label fw-semibold">
                   زمرة الدم
@@ -76,7 +91,7 @@ export default function NewAppointment() {
                 {['مسبق', 'مباشر', 'حالة إسعافية'].map((type, idx) => (
                   <div key={idx} className="form-check">
                     <input
-                      className="form-check-input"
+                      className="form-check-input bg-secondary"
                       type="radio"
                       name="appointmentType"
                       id={`radio${idx}`}
@@ -173,20 +188,21 @@ export default function NewAppointment() {
   );
 }
 
-// Keep your appointmentAction logic the same
-
 export const appointmentAction = async ({ request }) => {
-  console.log(request);
-
   const data = await request.formData();
 
   // package the form data into an object
   const submission = Object.fromEntries(data);
 
-  console.log(submission);
+  // validation logic
+  if (submission.name.trim().length < 3) {
+    return { error: 'يرجى إدخال اسم صحيح (3 أحرف على الأقل)' };
+  }
+  if (!/^09\d{8}$/.test(submission.phoneNumber)) {
+    return { error: 'رقم الهاتف يجب أن يبدأ بـ 09 ويتكون من 10 أرقام' };
+  }
 
   // send post request
-
   try {
     const res = await fetch('http://localhost:8000/appointments', {
       method: 'POST',

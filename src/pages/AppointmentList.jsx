@@ -15,14 +15,29 @@ export default function AppointmentList({ appointments, statusType }) {
           key={appointment.id}
         >
           <div className="card-body">
-            <h5 className="card-title">{appointment.name}</h5>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h5 className="card-title mb-0">{appointment.name}</h5>
+
+              {appointment.appointmentType === 'حالة إسعافية' && (
+                <span className="badge bg-danger d-flex align-items-center gap-1">
+                  <div
+                    className="spinner-grow spinner-grow-sm text-white"
+                    role="status"
+                  >
+                    <span className="visually-hidden">حالة إسعافية</span>
+                  </div>
+                  <span>إسعاف</span>
+                </span>
+              )}
+            </div>
 
             <div className="d-flex gap-2 mt-3 justify-content-start align-items-center">
               <Link
                 to={`/appointments/${appointment.id}`}
                 className="btn btn-sm btn-outline-secondary"
               >
-                التفاصيل
+                <i className="bi bi-info-circle"></i>
+                {' التفاصيل'}
               </Link>
 
               <fetcher.Form
@@ -40,9 +55,12 @@ export default function AppointmentList({ appointments, statusType }) {
                   type="submit"
                   className={`btn btn-sm ${appointment.appointmentStatus === 'inTreatment' ? 'btn-outline-success' : 'btn-outline-danger'}`}
                 >
+                  <i
+                    className={`bi ${appointment.appointmentStatus === 'inTreatment' ? 'bi-check2-circle' : 'bi-x-circle'}`}
+                  ></i>
                   {appointment.appointmentStatus === 'inTreatment'
-                    ? 'انهاء الجلسة'
-                    : 'الغاء الموعد'}
+                    ? ' انهاء الجلسة'
+                    : ' الغاء الموعد'}
                 </button>
               </fetcher.Form>
 
@@ -58,7 +76,8 @@ export default function AppointmentList({ appointments, statusType }) {
                     type="submit"
                     className="btn btn-sm btn-outline-warning text-secondary"
                   >
-                    بدء الجلسة
+                    <i className="bi bi-box-arrow-in-left"></i>
+                    {' بدء الجلسة'}
                   </button>
                 </fetcher.Form>
               )}

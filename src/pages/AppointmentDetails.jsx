@@ -1,4 +1,4 @@
-import { useLoaderData, Form, redirect } from 'react-router-dom';
+import { useLoaderData, Form, redirect, Link } from 'react-router-dom';
 import { deleteAppointment } from '../helpers';
 
 export default function AppointmentDetails() {
@@ -6,24 +6,54 @@ export default function AppointmentDetails() {
 
   return (
     <div className="container mt-5 text-end" dir="rtl">
+      <div className="mb-3">
+        <Link
+          to="/"
+          className="btn btn-link p-0 text-decoration-none text-primary"
+        >
+          <i className="bi bi-arrow-right"></i> العودة
+        </Link>
+      </div>
+
       <article
-        className={`card shadow-sm p-4 ${appointment.appointmentType === 'حالة إسعافية' ? 'border-danger' : ''}`}
+        className={`card shadow-sm p-4 ${appointment.appointmentType === 'حالة إسعافية' ? 'border-danger border-2' : ''}`}
       >
-        <h2 className="text-primary mb-4">{appointment.name}</h2>
-        <div className="mb-3">
-          <strong>رقم الهاتف:</strong> {appointment.phoneNumber}
+        <div className="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+          <h2 className="text-primary mb-0 fw-bold">{appointment.name}</h2>
+
+          {appointment.appointmentType === 'حالة إسعافية' && (
+            <span className="badge bg-danger d-flex align-items-center gap-2 py-2 px-3">
+              <div
+                className="spinner-grow spinner-grow-sm text-white"
+                role="status"
+              ></div>
+              <span className="fs-6">حالة إسعافية </span>
+            </span>
+          )}
         </div>
-        <div className="mb-3">
-          <strong>زمرة الدم:</strong>{' '}
-          <span className="badge bg-info">{appointment.bloodType}</span>
+
+        <div className="row g-3">
+          <div className="col-md-6 mb-3">
+            <i className="bi bi-telephone text-muted ms-2"></i>
+            رقم الهاتف: {appointment.phoneNumber}
+          </div>
+          <div className="col-md-6 mb-3">
+            <i className="bi bi-droplet text-muted ms-2"></i>
+            زمرة الدم:{' '}
+            <span className="badge bg-info">{appointment.bloodType}</span>
+          </div>
+          <div className="col-md-6 mb-3">
+            <i className="bi bi-calendar-event text-muted ms-2"></i>
+            التوقيت: {appointment.appointmentDate} |{' '}
+            {appointment.appointmentTime}
+          </div>
+          <div className="col-md-6 mb-3">
+            <i className="bi bi-info-circle text-muted ms-2"></i>
+            نوع الحجز: {appointment.appointmentType}
+          </div>
         </div>
-        <div className="mb-3">
-          <strong>نوع الحجز:</strong> {appointment.appointmentType}
-        </div>
-        <div className="mb-3">
-          <strong>التوقيت:</strong> {appointment.appointmentDate} |{' '}
-          {appointment.appointmentTime}
-        </div>
+
+        <hr className="my-4 opacity-25" />
 
         <Form
           method="post"
@@ -34,13 +64,19 @@ export default function AppointmentDetails() {
           }}
         >
           <input type="hidden" name="intent" value="delete" />
+
           <button
             type="submit"
-            className={`btn btn-sm ${appointment.appointmentStatus === 'inTreatment' ? 'btn-outline-success' : 'btn-outline-danger'}`}
+            className={`btn btn-lg ${appointment.appointmentStatus === 'inTreatment' ? 'btn-success' : 'btn-danger'} d-inline-flex align-items-center gap-2`}
           >
-            {appointment.appointmentStatus === 'inTreatment'
-              ? 'انهاء الجلسة'
-              : 'الغاء الموعد'}
+            <i
+              className={`bi ${appointment.appointmentStatus === 'inTreatment' ? 'bi-check2-circle' : 'bi-x-circle'}`}
+            ></i>
+            <span>
+              {appointment.appointmentStatus === 'inTreatment'
+                ? 'إنهاء الجلسة '
+                : 'إلغاء الموعد نهائياً'}
+            </span>
           </button>
         </Form>
       </article>
