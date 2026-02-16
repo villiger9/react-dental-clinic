@@ -11,6 +11,7 @@ import AppointmentDetails, {
   appointmentDetailsLoader,
   deleteAppointmentAction,
 } from './pages/AppointmentDetails';
+import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,7 +32,9 @@ const router = createBrowserRouter(
         element={<AppointmentDetails />}
         loader={appointmentDetailsLoader}
         action={deleteAppointmentAction}
+        errorElement={<NotFound />}
       />
+      <Route path="*" element={<NotFound />} />
     </Route>,
   ),
 );
