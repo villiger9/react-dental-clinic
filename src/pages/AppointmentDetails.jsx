@@ -16,18 +16,18 @@ export default function AppointmentDetails() {
       </div>
 
       <article
-        className={`card shadow-sm p-4 ${appointment.appointmentType === 'حالة إسعافية' ? 'border-danger border-2' : ''}`}
+        className={`card shadow-sm p-4 ${appointment.appointmentType === 'اسعاف' ? 'border-danger border-2' : ''}`}
       >
         <div className="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
           <h2 className="text-primary mb-0 fw-bold">{appointment.name}</h2>
 
-          {appointment.appointmentType === 'حالة إسعافية' && (
+          {appointment.appointmentType === 'اسعاف' && (
             <span className="badge bg-danger d-flex align-items-center gap-2 py-2 px-3">
               <div
                 className="spinner-grow spinner-grow-sm text-white"
                 role="status"
               ></div>
-              <span className="fs-6">حالة إسعافية </span>
+              <span className="fs-6">اسعاف </span>
             </span>
           )}
         </div>
@@ -75,7 +75,7 @@ export default function AppointmentDetails() {
             <span>
               {appointment.appointmentStatus === 'inTreatment'
                 ? 'إنهاء الجلسة '
-                : 'إلغاء الموعد نهائياً'}
+                : 'إلغاء الموعد '}
             </span>
           </button>
         </Form>

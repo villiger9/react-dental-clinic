@@ -6,10 +6,19 @@ export default function NewAppointment() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
   const today = new Date().toISOString().split('T')[0];
+  const generateTimeSlots = () => {
+    const slots = [];
+    let start = 9;
+    let end = 17;
+
+    for (let hour = start; hour < end; hour++) {
+      slots.push(`${hour}:00`, `${hour}:30`);
+    }
+    return slots;
+  };
 
   return (
     <div className="container py-5" dir="rtl">
-      {/* Header Section */}
       <div className="text-center mb-5">
         <h2 className="fw-bold text-primary">
           <i className="bi bi-ui-checks"></i> استمارة موعد جديد
@@ -17,7 +26,6 @@ export default function NewAppointment() {
         <p className="text-muted">أدخل بيانات المريض </p>
       </div>
 
-      {/* Form Card */}
       <div
         className="card shadow-sm border-0 mx-auto"
         style={{ maxWidth: '600px' }}
@@ -64,20 +72,30 @@ export default function NewAppointment() {
                     required
                   />
                 </div>
-              </div>{' '}
+              </div>
               <div className="col-md-6 mb-4">
                 <label htmlFor="bloodType" className="form-label fw-semibold">
                   زمرة الدم
                 </label>
-                <select className="form-select" id="bloodType" name="bloodType">
-                  {['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'].map(
-                    (type) => (
-                      <option key={type} value={type}>
-                        {type}
-                      </option>
-                    ),
-                  )}
-                </select>
+                <div className="input-group">
+                  <span className="input-group-text bg-light">
+                    <i className="bi bi-droplet text-primary"></i>
+                  </span>
+                  <select
+                    className="form-select"
+                    id="bloodType"
+                    name="bloodType"
+                    dir="ltr"
+                  >
+                    {['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'].map(
+                      (type) => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -88,7 +106,7 @@ export default function NewAppointment() {
                 نوع الحجز
               </label>
               <div className="d-flex gap-3 justify-content-start">
-                {['مسبق', 'مباشر', 'حالة إسعافية'].map((type, idx) => (
+                {['مسبق', 'مباشر', 'اسعاف'].map((type, idx) => (
                   <div key={idx} className="form-check">
                     <input
                       className="form-check-input bg-secondary"
@@ -133,13 +151,24 @@ export default function NewAppointment() {
                 >
                   الوقت
                 </label>
-                <input
-                  type="time"
-                  id="appointmentTime"
-                  name="appointmentTime"
-                  className="form-control"
-                  required
-                />
+                <div className="input-group">
+                  <span className="input-group-text bg-light">
+                    <i className="bi bi-clock text-primary"></i>
+                  </span>
+                  <select
+                    id="appointmentTime"
+                    name="appointmentTime"
+                    className="form-select"
+                    required
+                  >
+                    <option value="">اختر الوقت...</option>
+                    {generateTimeSlots().map((slot) => (
+                      <option key={slot} value={slot}>
+                        {slot}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -190,19 +219,23 @@ export default function NewAppointment() {
 
 export const appointmentAction = async ({ request }) => {
   const data = await request.formData();
-
-  // package the form data into an object
   const submission = Object.fromEntries(data);
 
-  // validation logic
-  if (submission.name.trim().length < 3) {
-    return { error: 'يرجى إدخال اسم صحيح (3 أحرف على الأقل)' };
-  }
-  if (!/^09\d{8}$/.test(submission.phoneNumber)) {
-    return { error: 'رقم الهاتف يجب أن يبدأ بـ 09 ويتكون من 10 أرقام' };
+  const resCheck = await fetch('http://localhost:8000/appointments');
+  const existingAppointments = await resCheck.json();
+
+  const isConflicting = existingAppointments.some(
+    (app) =>
+      app.appointmentDate === submission.appointmentDate &&
+      app.appointmentTime === submission.appointmentTime,
+  );
+
+  if (isConflicting) {
+    return { error: 'هذا الموعد محجوز، يرجى اختيار وقت أو تاريخ آخر' };
   }
 
-  // send post request
+  if (submission.name.trim().length < 3) return { error: 'الاسم المدخل قصير' };
+
   try {
     const res = await fetch('http://localhost:8000/appointments', {
       method: 'POST',
@@ -210,18 +243,9 @@ export const appointmentAction = async ({ request }) => {
       body: JSON.stringify(submission),
     });
 
-    if (!res.ok) {
-      // catch the error status
-      const errorData = await res.json().catch(() => ({}));
-      console.error('Server Refusal:', res.status, errorData);
-      return {
-        error: `Server returned ${res.status}: ${errorData.message || 'Validation failed'}`,
-      };
-    }
-
-    return redirect('/');
+    if (!res.ok) throw Error();
+    return redirect('/?msg=added');
   } catch (error) {
-    //  catches network/connection errors
-    return { error: 'Cannot connect to the server.' };
+    return { error: 'حدث خطأ أثناء الاتصال' };
   }
 };
