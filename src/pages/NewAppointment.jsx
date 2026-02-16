@@ -198,7 +198,7 @@ export default function NewAppointment() {
                 disabled={isSubmitting}
                 className="py-2 shadow-sm"
               >
-                {isSubmitting ? 'جاري الحفظ...' : 'تأكيد إضافة الموعد'}
+                {isSubmitting ? 'جاري الحفظ...' : 'تأكيد اضافة الموعد'}
               </Button>
             </div>
 
@@ -231,10 +231,11 @@ export const appointmentAction = async ({ request }) => {
   );
 
   if (isConflicting) {
-    return { error: 'هذا الموعد محجوز، يرجى اختيار وقت أو تاريخ آخر' };
+    return { error: 'هذا الموعد محجوز، يرجى اختيار وقت آخر' };
   }
 
-  if (submission.name.trim().length < 3) return { error: 'الاسم المدخل قصير' };
+  if (submission.name.trim().length < 3)
+    return { error: 'اسم المريض المدخل قصير' };
 
   try {
     const res = await fetch('http://localhost:8000/appointments', {

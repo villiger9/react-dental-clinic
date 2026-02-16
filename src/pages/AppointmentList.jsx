@@ -31,7 +31,7 @@ export default function AppointmentList({ appointments, statusType }) {
               )}
             </div>
 
-            <div className="d-flex gap-2 mt-3 justify-content-start align-items-center">
+            <div className="d-flex flex-wrap gap-2 mt-3 justify-content-start align-items-center">
               <Link
                 to={`/appointments/${appointment.id}`}
                 className="btn btn-sm btn-outline-secondary"
@@ -90,7 +90,8 @@ export default function AppointmentList({ appointments, statusType }) {
                     type="submit"
                     className="btn btn-sm btn-outline-primary"
                   >
-                    نقل الى الانتظار
+                    <i className="bi bi-box-arrow-in-left"></i>
+                    {' نقل الى الانتظار'}
                   </button>
                 </fetcher.Form>
               )}

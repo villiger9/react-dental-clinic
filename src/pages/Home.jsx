@@ -9,8 +9,8 @@ export default function Home() {
     <div className="container-fluid py-4 text-end" dir="rtl">
       <div className="row g-4">
         {/* first column */}
-        <div className="col-md-4">
-          <h4 className="text-primary border-bottom pb-2">المرضى القادمون</h4>
+        <div className="col-lg-4 col-md-6">
+          <h4 className="text-secondary border-bottom pb-2">المرضى القادمون</h4>
           <AppointmentList
             appointments={allAppointments.filter(
               (a) => a.appointmentStatus === 'upcoming',
@@ -19,7 +19,7 @@ export default function Home() {
         </div>
 
         {/* second column */}
-        <div className="col-md-4 border-start border-end">
+        <div className="col-lg-4 col-md-6">
           <h4 className="text-warning border-bottom pb-2">في الانتظار</h4>
           <AppointmentList
             appointments={allAppointments.filter(
@@ -29,7 +29,7 @@ export default function Home() {
         </div>
 
         {/* third column */}
-        <div className="col-md-4">
+        <div className="col-lg-4 col-md-12">
           <h4 className="text-success border-bottom pb-2">المريض الحالي</h4>
           <AppointmentList
             appointments={allAppointments.filter(
@@ -43,19 +43,15 @@ export default function Home() {
 }
 
 //loader function
-
 export const appointmentsLoader = async () => {
   const res = await fetch('http://localhost:8000/appointments');
-
   if (!res.ok) {
     throw Error('Could not fetch the appointments');
   }
-
   return res.json();
 };
 
-// Home.jsx
-
+//home action
 export const homeAction = async ({ request }) => {
   const formData = await request.formData();
   const id = formData.get('id');
